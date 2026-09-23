@@ -1,10 +1,10 @@
-# Motor Control System V1
+# 电机控制系统V1
 
 基于 **Siemens S7-1200 + KTP700 HMI + C# WPF** 开发的电机控制与监控系统。
 
 项目在传统 PLC + HMI 控制的基础上，引入 C# WPF 上位机，实现 **电机启停、PLC 状态监控、故障状态显示以及 PLC 通信管理**。
 
-## 🏗️ System Architecture
+## 🏗️ 系统架构
 
 ```text
 ┌──────────────┐
@@ -27,7 +27,7 @@ PLC 负责实时控制、联锁和故障保护；
 C# WPF 负责上位机操作与状态监控；  
 HMI 用于现场操作。
 
-## 🔧 Technology Stack
+## 🔧 技术栈
 
 - **PLC:** Siemens S7-1200 CPU 1214C DC/DC/DC
 - **HMI:** Siemens KTP700 Basic PN
@@ -38,7 +38,7 @@ HMI 用于现场操作。
 - **IDE:** Visual Studio
 - **Simulation:** PLCSIM + NetToPLCsim
 
-## ⚙️ Main Functions
+## ⚙️ 主要功能
 
 - 电机启动 / 停止
 - PLC 实时状态读取
@@ -51,7 +51,7 @@ HMI 用于现场操作。
 - PLC 断线自动重连
 - WPF 按钮状态联锁
 
-## 🧠 PLC Control Logic
+## 🧠 PLC控制逻辑
 
 系统主要状态：
 
@@ -78,7 +78,7 @@ Stop
 
 如果电机进入运行状态后约 **3 秒**仍未检测到反馈，则产生 `Feedback_Fault`。
 
-## 🔌 C# ↔ PLC Communication
+## 🔌 C# ↔ PLC 通信
 
 由于 PLC 主数据块 `DB_Motor` 使用优化访问，本项目没有让 C# 直接依赖其内部偏移地址。
 
@@ -105,7 +105,7 @@ DB_CSharp
 
 C# 通过 `PlcService` 统一管理 PLC 通信。
 
-## 🖥️ C# Architecture
+## 🖥️ C# 架构
 
 ```text
 WPF View
@@ -138,7 +138,7 @@ MotorControlSystem
 
 ## 🚀 Running
 
-### 1. PLC / Simulation
+### 1. PLC / 模拟
 
 使用 TIA Portal V17 打开 PLC 工程并下载程序。
 
@@ -154,7 +154,7 @@ NetToPLCsim
 C# WPF
 ```
 
-### 2. C# Project
+### 2. C# 项目
 
 使用 Visual Studio 打开：
 
@@ -174,7 +174,7 @@ new Plc(
 
 实际现场 PLC 使用时，请修改为现场 PLC 的实际 IP。
 
-### 3. Start
+### 3. 启动
 
 运行 WPF 程序后：
 
@@ -190,7 +190,7 @@ PLC 执行控制逻辑
 WPF 实时显示运行状态
 ```
 
-## 📦 Release
+## 📦 发布
 
 项目支持通过 Visual Studio 发布 Windows 可执行程序。
 
@@ -208,30 +208,7 @@ Deployment    : Self-contained
 MotorControlSystem.exe
 ```
 
-## 📁 Project Structure
-
-```text
-Motor-Control-System-V1
-│
-├── PLC
-│   ├── FC_Motor_Control
-│   ├── FC_CSharp_Interface
-│   ├── DB_Motor
-│   └── DB_CSharp
-│
-├── HMI
-│   └── KTP700 Basic
-│
-├── CSharp
-│   ├── MainWindow.xaml
-│   ├── MainViewModel.cs
-│   ├── PlcService.cs
-│   └── RelayCommand.cs
-│
-└── README.md
-```
-
-## 💡 Project Highlights
+## 💡 项目亮点
 
 - PLC + HMI + PC 上位机一体化架构
 - Siemens S7-1200 工业控制
@@ -243,7 +220,7 @@ Motor-Control-System-V1
 - PLC 断线检测与自动重连
 - Release / EXE 部署实践
 
-## 📌 Project Status
+## 📌 项目状态
 
 **Version:** V1.0
 
