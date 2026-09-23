@@ -1,0 +1,6 @@
+H:\PLC\C#\MotorControlSystem\bin\Release\net8.0-windows\publish\win-x64\MotorControlSystem.exe
+H:\PLC\C#\MotorControlSystem\bin\Release\net8.0-windows\publish\win-x64\MotorControlSystem.dll
+H:\PLC\C#\MotorControlSystem\bin\Release\net8.0-windows\publish\win-x64\MotorControlSystem.deps.json
+H:\PLC\C#\MotorControlSystem\bin\Release\net8.0-windows\publish\win-x64\MotorControlSystem.runtimeconfig.json
+H:\PLC\C#\MotorControlSystem\bin\Release\net8.0-windows\publish\win-x64\MotorControlSystem.pdb
+H:\PLC\C#\MotorControlSystem\bin\Release\net8.0-windows\publish\win-x64\S7.Net.dll
