@@ -1,0 +1,613 @@
+﻿<Window x:Class="MotorControlSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="电机控制系统"
+        Width="1024"
+        Height="600"
+        MinWidth="900"
+        MinHeight="520"
+        WindowStartupLocation="CenterScreen"
+        Background="#1E2228">
+
+    <Window.Resources>
+
+        <!-- 卡片 -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#2A3038"/>
+            <Setter Property="BorderBrush" Value="#424A55"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+
+        <!-- 区域标题 -->
+        <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#F2F4F7"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- 普通标签 -->
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#C8CDD4"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- 状态文字 -->
+        <Style x:Key="StatusTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#F2F4F7"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- 启动按钮 -->
+        <Style x:Key="StartButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#16803C"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#20A04B"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#10652F"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#454B53"/>
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.65"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 停止按钮 -->
+        <Style x:Key="StopButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#B42318"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#D92D20"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#8F1D14"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#454B53"/>
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.65"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="68"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="42"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- ========================= -->
+        <!-- 顶部 -->
+        <!-- ========================= -->
+
+        <Border Grid.Row="0"
+                Background="#15181D"
+                BorderBrush="#303640"
+                BorderThickness="0,0,0,1">
+
+            <Grid>
+
+                <TextBlock Text="电机控制系统"
+                           Foreground="#FFFFFF"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="24,0,0,0"/>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,0,24,0">
+
+                    <Ellipse Width="12"
+                             Height="12"
+                             Fill="{Binding PlcConnectionColor}"
+                             Margin="0,0,8,0"/>
+
+                    <TextBlock Text="{Binding PlcConnectionText}"
+                               Foreground="#C8CDD4"
+                               FontSize="15"
+                               VerticalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ========================= -->
+        <!-- 中间 -->
+        <!-- ========================= -->
+
+        <Grid Grid.Row="1"
+              Margin="14">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition Width="1.25*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <!-- ========================= -->
+            <!-- 左：操作 -->
+            <!-- ========================= -->
+
+            <Border Grid.Column="0"
+                    Style="{StaticResource CardStyle}"
+                    Margin="5">
+
+                <Grid Margin="18">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <TextBlock Grid.Row="0"
+                               Text="操作控制"
+                               Style="{StaticResource SectionTitleStyle}"/>
+
+
+                    <Button Grid.Row="1"
+                            Content="▶  启动"
+                            Command="{Binding StartPlcCommand}"
+                            Style="{StaticResource StartButtonStyle}"/>
+
+
+                    <Button Grid.Row="2"
+                            Content="■  停止"
+                            Command="{Binding StopPlcCommand}"
+                            Style="{StaticResource StopButtonStyle}"/>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- ========================= -->
+            <!-- 中：设备状态 -->
+            <!-- ========================= -->
+
+            <Border Grid.Column="1"
+                    Style="{StaticResource CardStyle}"
+                    Margin="5">
+
+                <Grid Margin="18">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="55"/>
+                    </Grid.RowDefinitions>
+
+
+                    <TextBlock Grid.Row="0"
+                               Text="设备状态"
+                               Style="{StaticResource SectionTitleStyle}"/>
+
+
+                    <!-- 当前状态 -->
+
+                    <Border Grid.Row="1"
+                            Background="#20252C"
+                            BorderBrush="#3C444F"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Margin="4">
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Margin="18,0">
+
+                                <TextBlock Text="当前状态"
+                                           Foreground="#9EA7B3"
+                                           FontSize="14"/>
+
+                                <TextBlock Text="{Binding PlcStateText}"
+                                           Foreground="#FFFFFF"
+                                           FontSize="25"
+                                           FontWeight="Bold"
+                                           Margin="0,4,0,0"/>
+
+                            </StackPanel>
+
+
+                            <Ellipse Grid.Column="1"
+                                     Width="22"
+                                     Height="22"
+                                     Fill="{Binding StateColor}"
+                                     Margin="0,0,15,0"
+                                     VerticalAlignment="Center"/>
+
+
+                            <StackPanel Grid.Column="2"
+                                        VerticalAlignment="Center"
+                                        Margin="0,0,15,0">
+
+                                <TextBlock Text="状态码"
+                                           Foreground="#9EA7B3"
+                                           FontSize="12"/>
+
+                                <TextBlock Text="{Binding State}"
+                                           Foreground="#F2F4F7"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+
+
+                    <Rectangle Grid.Row="2"
+                               Fill="#3A414B"
+                               Height="1"
+                               Margin="5,0"/>
+
+
+                    <!-- 就绪 -->
+
+                    <Grid Grid.Row="3"
+                          Margin="8,4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="42"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Ellipse Grid.Column="0"
+                                 Width="18"
+                                 Height="18"
+                                 Fill="{Binding ReadyStatusColor}"
+                                 VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="准备就绪"
+                                   Style="{StaticResource StatusTextStyle}"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding IsReady, StringFormat={}{0}}"
+                                   Foreground="#9EA7B3"
+                                   VerticalAlignment="Center"/>
+
+                    </Grid>
+
+
+                    <!-- 运行 -->
+
+                    <Grid Grid.Row="4"
+                          Margin="8,4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="42"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Ellipse Grid.Column="0"
+                                 Width="18"
+                                 Height="18"
+                                 Fill="{Binding RunningStatusColor}"
+                                 VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="电机运行"
+                                   Style="{StaticResource StatusTextStyle}"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding RunningText}"
+                                   Foreground="#9EA7B3"
+                                   VerticalAlignment="Center"/>
+
+                    </Grid>
+
+
+                    <!-- 故障 -->
+
+                    <Grid Grid.Row="5"
+                          Margin="8,4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="42"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Ellipse Grid.Column="0"
+                                 Width="18"
+                                 Height="18"
+                                 Fill="{Binding FaultStatusColor}"
+                                 VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="系统故障"
+                                   Style="{StaticResource StatusTextStyle}"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding FaultText}"
+                                   Foreground="#9EA7B3"
+                                   VerticalAlignment="Center"/>
+
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- ========================= -->
+            <!-- 右：保护 -->
+            <!-- ========================= -->
+
+            <Border Grid.Column="2"
+                    Style="{StaticResource CardStyle}"
+                    Margin="5">
+
+                <Grid Margin="18">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+
+
+                    <TextBlock Grid.Row="0"
+                               Text="保护状态"
+                               Style="{StaticResource SectionTitleStyle}"/>
+
+
+                    <!-- 急停 -->
+
+                    <Grid Grid.Row="1"
+                          Margin="8,4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Ellipse Grid.Column="0"
+                                 Width="20"
+                                 Height="20"
+                                 Fill="{Binding EmergencyStatusColor}"
+                                 VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="急停"
+                                   Style="{StaticResource StatusTextStyle}"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding EmergencyStatusText}"
+                                   Foreground="{Binding EmergencyStatusColor}"
+                                   FontSize="15"
+                                   VerticalAlignment="Center"/>
+
+                    </Grid>
+
+
+                    <!-- 过载 -->
+
+                    <Grid Grid.Row="2"
+                          Margin="8,4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Ellipse Grid.Column="0"
+                                 Width="20"
+                                 Height="20"
+                                 Fill="{Binding OverloadStatusColor}"
+                                 VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="过载保护"
+                                   Style="{StaticResource StatusTextStyle}"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding OverloadStatusText}"
+                                   Foreground="{Binding OverloadStatusColor}"
+                                   FontSize="15"
+                                   VerticalAlignment="Center"/>
+
+                    </Grid>
+
+
+                    <!-- 电机反馈 -->
+
+                    <Grid Grid.Row="3"
+                          Margin="8,4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Ellipse Grid.Column="0"
+                                 Width="20"
+                                 Height="20"
+                                 Fill="{Binding FeedbackStatusColor}"
+                                 VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="电机反馈"
+                                   Style="{StaticResource StatusTextStyle}"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding FeedbackStatusText}"
+                                   Foreground="{Binding FeedbackStatusColor}"
+                                   FontSize="15"
+                                   VerticalAlignment="Center"/>
+
+                    </Grid>
+
+
+                    <!-- 反馈故障 -->
+
+                    <Grid Grid.Row="4"
+                          Margin="8,4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Ellipse Grid.Column="0"
+                                 Width="20"
+                                 Height="20"
+                                 Fill="{Binding FeedbackFaultStatusColor}"
+                                 VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="反馈监控"
+                                   Style="{StaticResource StatusTextStyle}"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding FeedbackFaultStatusText}"
+                                   Foreground="{Binding FeedbackFaultStatusColor}"
+                                   FontSize="15"
+                                   VerticalAlignment="Center"/>
+
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- ========================= -->
+        <!-- 底部 -->
+        <!-- ========================= -->
+
+        <Border Grid.Row="2"
+                Background="#15181D"
+                BorderBrush="#303640"
+                BorderThickness="0,1,0,0">
+
+            <Grid>
+
+                <TextBlock Text="Motor Control System V1"
+                           Foreground="#7F8996"
+                           FontSize="13"
+                           VerticalAlignment="Center"
+                           Margin="18,0,0,0"/>
+
+                <TextBlock Text="{Binding PlcConnectionText}"
+                           Foreground="#AEB6C1"
+                           FontSize="13"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Margin="0,0,18,0"/>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>
