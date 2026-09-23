@@ -31,12 +31,12 @@ HMI 用于现场操作。
 
 - **PLC:** Siemens S7-1200 CPU 1214C DC/DC/DC
 - **HMI:** Siemens KTP700 Basic PN
-- **PLC Software:** TIA Portal V17
-- **Desktop:** C# / WPF
-- **Architecture:** MVVM
-- **PLC Communication:** S7.NetPlus 0.20.0
+- **PLC软件:** TIA Portal V17
+- **桌面应用:** C# / WPF
+- **架构:** MVVM
+- **PLC通信:** S7.NetPlus 0.20.0
 - **IDE:** Visual Studio
-- **Simulation:** PLCSIM + NetToPLCsim
+- **仿真:** PLCSIM + NetToPLCsim
 
 ## ⚙️ 主要功能
 
@@ -138,7 +138,7 @@ MotorControlSystem
 
 ## 🚀 Running
 
-### 1. PLC / 模拟
+### 1. PLC / 仿真
 
 使用 TIA Portal V17 打开 PLC 工程并下载程序。
 
